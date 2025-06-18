@@ -371,4 +371,126 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// Website Performance Optimizer
+// Add this to your main JavaScript file
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. Lazy load images
+    function lazyLoadImages() {
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+    
+    // 2. Preload critical resources
+    function preloadCriticalResources() {
+        // Preload critical images
+        const criticalImages = [
+            '/path/to/hero-image.jpg',
+            '/path/to/logo.png'
+        ];
+        
+        criticalImages.forEach(src => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = src;
+            document.head.appendChild(link);
+        });
+    }
+    
+    // 3. Optimize font loading
+    function optimizeFonts() {
+        // Add font-display: swap to existing fonts
+        const fontLinks = document.querySelectorAll('link[href*="fonts.googleapis.com"]');
+        fontLinks.forEach(link => {
+            if (link.href.indexOf('display=swap') === -1) {
+                link.href += link.href.indexOf('?') === -1 ? '?display=swap' : '&display=swap';
+            }
+        });
+    }
+    
+    // 4. Defer non-critical JavaScript
+    function deferNonCriticalJS() {
+        const scripts = document.querySelectorAll('script[data-defer]');
+        scripts.forEach(script => {
+            const newScript = document.createElement('script');
+            newScript.src = script.dataset.defer;
+            newScript.defer = true;
+            document.body.appendChild(newScript);
+        });
+    }
+    
+    // 5. Add loading states to prevent layout shift
+    function addLoadingStates() {
+        const images = document.querySelectorAll('img:not([width]):not([height])');
+        images.forEach(img => {
+            // Add placeholder dimensions if not set
+            if (!img.style.width && !img.style.height) {
+                img.style.minHeight = '200px';
+                img.style.backgroundColor = '#f0f0f0';
+                
+                img.onload = function() {
+                    this.style.minHeight = 'auto';
+                    this.style.backgroundColor = 'transparent';
+                };
+            }
+        });
+    }
+    
+    // 6. Optimize third-party scripts
+    function optimizeThirdParty() {
+        // Delay third-party scripts until user interaction
+        let userInteracted = false;
+        
+        function loadThirdPartyScripts() {
+            if (userInteracted) return;
+            userInteracted = true;
+            
+            // Load analytics, social widgets, etc.
+            const thirdPartyScripts = document.querySelectorAll('script[data-third-party]');
+            thirdPartyScripts.forEach(script => {
+                const newScript = document.createElement('script');
+                newScript.src = script.dataset.thirdParty;
+                newScript.async = true;
+                document.head.appendChild(newScript);
+            });
+        }
+        
+        // Load on first user interaction
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(event => {
+            document.addEventListener(event, loadThirdPartyScripts, { passive: true, once: true });
+        });
+    }
+    
+    // Initialize all optimizations
+    lazyLoadImages();
+    preloadCriticalResources();
+    optimizeFonts();
+    deferNonCriticalJS();
+    addLoadingStates();
+    optimizeThirdParty();
+    
+    console.log('Performance optimizations loaded');
+});
+
+// 7. Service Worker for caching (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('SW registered'))
+            .catch(error => console.log('SW registration failed'));
+    });
+}
 
