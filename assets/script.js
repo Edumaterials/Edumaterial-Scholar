@@ -276,18 +276,99 @@ function monitorFormSubmission() {
     }
 }
 
-const topBtn = document.getElementById("topBtn");
-
-window.onscroll = function () {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-    } else {
-        topBtn.style.display = "none";
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo h1');
+    if (logo && !logo.closest('a')) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', function() {
+            window.location.href = '/';
+        });
     }
-};
+});
 
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+// Universal Back to Top Button
+// Add this to a shared JS file and include it on all pages
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Create the button element
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.id = 'backToTopBtn';
+    backToTopBtn.innerHTML = '↑';
+    backToTopBtn.title = 'Back to Top';
+    
+    // Add styles to the button
+    backToTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+    
+    // Add hover effect
+    backToTopBtn.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#0056b3';
+        this.style.transform = 'scale(1.1)';
+    });
+    
+    backToTopBtn.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = '#007bff';
+        this.style.transform = 'scale(1)';
+    });
+    
+    // Add the button to the page
+    document.body.appendChild(backToTopBtn);
+    
+    // Show/hide button based on scroll position
+    function toggleButton() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.opacity = '1';
+            backToTopBtn.style.visibility = 'visible';
+        } else {
+            backToTopBtn.style.opacity = '0';
+            backToTopBtn.style.visibility = 'hidden';
+        }
+    }
+    
+    // Smooth scroll to top function
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', toggleButton);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    // Initial check
+    toggleButton();
+});
+
+// Optional: Logo click functionality (if you want to add it here too)
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo h1');
+    if (logo && !logo.closest('a')) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', function() {
+            window.location.href = '/';
+        });
+    }
+});
 
