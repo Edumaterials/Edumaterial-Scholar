@@ -275,6 +275,19 @@ function monitorFormSubmission() {
         });
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo h1');
+    if (logo && !logo.closest('a')) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', function() {
+            window.location.href = '/';
+        });
+    }
+});
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const logo = document.querySelector('.logo h1');
@@ -397,8 +410,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function preloadCriticalResources() {
         // Preload critical images
         const criticalImages = [
-            '/path/to/hero-image.jpg',
-            '/path/to/logo.png'
+            '../assets/Edumaterial Scholar.png',
+            '../assets/profile.png'
         ];
         
         criticalImages.forEach(src => {
@@ -484,13 +497,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Performance optimizations loaded');
 });
-
-// 7. Service Worker for caching (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => console.log('SW registered'))
-            .catch(error => console.log('SW registration failed'));
-    });
-}
-
