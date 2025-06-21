@@ -140,7 +140,7 @@ header {
 .logo h1 {
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     margin: 0;
-    color: #333;
+    color: #357FF0;
     white-space: nowrap;
 }
 
@@ -756,6 +756,9 @@ footer {
     h1 {
         font-size: 2.2rem;
     }
+    .logo h1 {
+        font-size: larger;
+    }
     
     h2 {
         font-size: 1.8rem;
@@ -1220,12 +1223,12 @@ footer {
     font-size: 16px;
     display: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
+}
   
-  #topBtn:hover {
+#topBtn:hover {
     background-color: #45a049;
-  }
-  .test-button {
+}
+.test-button {
     background: #4285f4;
     color: var(--white);
     border: none;
