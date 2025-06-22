@@ -406,23 +406,6 @@ document.addEventListener('DOMContentLoaded', function() {
         images.forEach(img => imageObserver.observe(img));
     }
     
-    // 2. Preload critical resources
-    function preloadCriticalResources() {
-        // Preload critical images
-        const criticalImages = [
-            '../assets/Edumaterial Scholar.png',
-            '../assets/profile.png'
-        ];
-        
-        criticalImages.forEach(src => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.as = 'image';
-            link.href = src;
-            document.head.appendChild(link);
-        });
-    }
-    
     // 3. Optimize font loading
     function optimizeFonts() {
         // Add font-display: swap to existing fonts
@@ -489,7 +472,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all optimizations
     lazyLoadImages();
-    preloadCriticalResources();
     optimizeFonts();
     deferNonCriticalJS();
     addLoadingStates();
